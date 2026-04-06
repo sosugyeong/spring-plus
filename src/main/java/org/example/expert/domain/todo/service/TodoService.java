@@ -7,6 +7,7 @@ import org.example.expert.domain.common.exception.InvalidRequestException;
 import org.example.expert.domain.todo.dto.request.TodoSaveRequest;
 import org.example.expert.domain.todo.dto.response.TodoResponse;
 import org.example.expert.domain.todo.dto.response.TodoSaveResponse;
+import org.example.expert.domain.todo.dto.response.TodoSearchResponse;
 import org.example.expert.domain.todo.entity.Todo;
 import org.example.expert.domain.todo.repository.TodoRepository;
 import org.example.expert.domain.user.dto.response.UserResponse;
@@ -16,6 +17,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.time.LocalDateTime;
 
 @Service
 @RequiredArgsConstructor
@@ -74,5 +77,17 @@ public class TodoService {
         return todoRepository.findTodoSummary(todoId)
                 .orElseThrow(() -> new InvalidRequestException("Todo not found"));
 
+    }
+
+    public Page<TodoSearchResponse> getSearchTodo(String keyword,
+                                                  String nickname,
+                                                  LocalDateTime startDate,
+                                                  LocalDateTime endDate,
+                                                  int page,
+                                                  int size
+    ){
+        Pageable pageable = PageRequest.of(page - 1, size);
+
+        return todoRepository.searchTodo(keyword, nickname, startDate, endDate, pageable);
     }
 }
