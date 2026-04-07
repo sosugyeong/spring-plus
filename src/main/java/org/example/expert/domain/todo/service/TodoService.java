@@ -22,12 +22,12 @@ import java.time.LocalDateTime;
 
 @Service
 @RequiredArgsConstructor
-@Transactional
 public class TodoService {
 
     private final TodoRepository todoRepository;
     private final WeatherClient weatherClient;
 
+    @Transactional
     public TodoSaveResponse saveTodo(AuthUser authUser, TodoSaveRequest todoSaveRequest) {
         User user = User.fromAuthUser(authUser);
 
@@ -50,6 +50,7 @@ public class TodoService {
         );
     }
 
+    @Transactional(readOnly = true)
     public Page<TodoResponse> getTodos(int page, int size, String weather) {
         Pageable pageable = PageRequest.of(page - 1, size);
 
@@ -72,6 +73,7 @@ public class TodoService {
         ));
     }
 
+    @Transactional(readOnly = true)
     public TodoResponse getTodo(long todoId) {
 
         return todoRepository.findTodoSummary(todoId)
@@ -79,6 +81,7 @@ public class TodoService {
 
     }
 
+    @Transactional(readOnly = true)
     public Page<TodoSearchResponse> getSearchTodo(String keyword,
                                                   String nickname,
                                                   LocalDateTime startDate,
