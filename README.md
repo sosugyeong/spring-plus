@@ -4,12 +4,12 @@
 
 ## 🛠️ 기술 스택
 - Language: Java 17
-- Framework: Spring Boot 3.0.0
+- Framework: Spring Boot 3.3.3
 - Database: MySQL
 - ORM: Spring Data JPA
 - Query Optimization: QueryDSL
 - Security: Spring Security, JWT
-- AOP: Aspect Oriented Programming
+
 ---
 
 ## 🏗️ 프로젝트 구조
